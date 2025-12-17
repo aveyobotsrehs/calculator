@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        .input-group-text {
+            min-width: 150px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body data-bs-no-jquery>
+    <div class="container" id="main_container">
+        <div class="row text-center">
+            <h1 class="display-4">Калькулятор</h1>
+            <p class="lead mb-0">С помощью этого калькулятора можно складывать, вычитать, умножать и делить до четырёх чисел.</p>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="first_number">Первое число</span>
+                <input type="text" class="form-control" aria-describedby="first_number" id="first_number_input">
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="operation1" id="addition1" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="addition1">Сложение</label>
+
+                    <input type="radio" class="btn-check" name="operation1" id="subtraction1" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="subtraction1">Вычитание</label>
+
+                    <input type="radio" class="btn-check" name="operation1" id="multiplication1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="multiplication1">Умножение</label>
+
+                    <input type="radio" class="btn-check" name="operation1" id="division1" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="division1">Деление</label>
+                </div>
+            </div>
+            <p>(</p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="second_number">Второе число</span>
+                <input type="text" class="form-control" aria-describedby="second_number" id="second_number_input">
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="operation2" id="addition2" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="addition2">Сложение</label>
+
+                    <input type="radio" class="btn-check" name="operation2" id="subtraction2" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="subtraction2">Вычитание</label>
+
+                    <input type="radio" class="btn-check" name="operation2" id="multiplication2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="multiplication2">Умножение</label>
+
+                    <input type="radio" class="btn-check" name="operation2" id="division2" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="division2">Деление</label>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="third_number">Третье число</span>
+                <input type="text" class="form-control" aria-describedby="third_number" id="third_number_input">
+            </div>
+            <p>)</p>
+            <div class="col-md-12 mb-3">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="operation3" id="addition3" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="addition3">Сложение</label>
+
+                    <input type="radio" class="btn-check" name="operation3" id="subtraction3" autocomplete="off">
+                    <label class="btn btn-outline-danger" for="subtraction3">Вычитание</label>
+
+                    <input type="radio" class="btn-check" name="operation3" id="multiplication3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="multiplication3">Умножение</label>
+
+                    <input type="radio" class="btn-check" name="operation3" id="division3" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="division3">Деление</label>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="fourth_number">Четвертое число</span>
+                <input type="text" class="form-control" aria-describedby="fourth_number" id="fourth_number_input">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="rounding" checked>
+                    <label class="form-check-label" for="rounding">Округлить до 6 знаков после запятой</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="result">Результат</span>
+                    <input type="text" class="form-control" aria-describedby="result" id="result_input" readonly>
+                </div>
+                <div class="alert alert-danger" role="alert" id="error_message" style="display: none;">
+                    Введите корректные данные: дробные числа, разделенные точкой или запятой, с не более чем одним пробелом между разрядами
+                </div>
+                <div class="alert alert-danger" role="alert" id="division_by_zero" style="display: none;">
+                    Деление на 0 невозможно
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <p>Выберите тип округления для целого результата</p>
+            <div class="col-md-12 mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="roundingMode" id="roundingMode1" checked>
+                    <label class="form-check-label" for="roundingMode1">
+                        Математическое
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="roundingMode" id="roundingMode2">
+                    <label class="form-check-label" for="roundingMode2">
+                        Бухгалтерское (банковское)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="roundingMode" id="roundingMode3">
+                    <label class="form-check-label" for="roundingMode3">
+                        Усечение
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="result_int">Округленный результат</span>
+                    <input type="text" class="form-control" aria-describedby="result_int" id="result_int_input" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/js-big-decimal@1.4.1/dist/web/js-big-decimal.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
